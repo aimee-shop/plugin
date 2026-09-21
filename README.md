@@ -200,6 +200,7 @@ aimee-shop/                       -- SOURCE OF TRUTH for all packagings
   agents/                         -- review and audit agents
   assets/                         -- listing logo and composer icon
 scripts/build-packagings.mjs      -- generates dist/ + marketplace packs from aimee-shop/
+scripts/publish-github.sh         -- publish canonical main to the public GitHub repo
 dist/agent-plugins/aimee-shop/    -- GENERATED Agent Plugins 1.0 package
 dist/grok/aimee-shop/             -- GENERATED Grok Build package
 dist/openai/                      -- GENERATED ChatGPT/Codex adapter + submission notes
@@ -213,5 +214,18 @@ fails if the generated packagings are stale.
 There is no local runtime to install -- every packaging points at the hosted
 MCP server over HTTPS and the client handles OAuth.
 
-This repository is a read-only distribution mirror; issues are disabled.
+## Release
+
+Publish the public GitHub repository only from a clean checkout of canonical
+main, after that pipeline is green:
+
+```bash
+scripts/publish-github.sh
+```
+
+`scripts/publish-github.sh --check` runs the same checks and does not push.
+The script uses the existing GitHub SSH login. It refuses a dirty tree, a
+commit that is not `origin/main`, and a non-fast-forward update.
+
+This GitHub repository is the public publish target. Issues are disabled.
 Questions and bug reports: support@aimee.shop.
