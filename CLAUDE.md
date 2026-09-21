@@ -54,6 +54,10 @@ packagings. Covers two tracks: merchant/storefront and app/connector developer.
   Marketplace slug stays `aimee`; plugin id is `aimee`.
 - This plugin is client-facing: no internal tooling references and no
   internal URLs (aimee.shop domains only) in any tracked file.
-- The GitHub repository is a read-only distribution mirror; changes land in
-  the canonical repository and sync automatically. External pull requests
-  cannot be merged -- direct contributors to support@aimee.shop.
+- GitHub (https://github.com/aimee-shop/plugin) is the public publish
+  target. After a change is merged to canonical main and that pipeline is
+  green, publish with `scripts/publish-github.sh` from a clean checkout
+  (existing GitHub SSH login; no token in the repo).
+  `scripts/publish-github.sh --check` runs the same checks and does not
+  push. External pull requests cannot be merged -- direct contributors to
+  support@aimee.shop.
