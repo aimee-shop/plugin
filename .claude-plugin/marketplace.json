@@ -1,0 +1,26 @@
+{
+  "$schema": "https://claude.ai/schemas/marketplace.json",
+  "name": "aimee",
+  "owner": {
+    "name": "Aimee",
+    "email": "support@aimee.shop"
+  },
+  "metadata": {
+    "description": "Official Aimee plugins for Claude Code - build e-commerce stores and apps with AI assistance."
+  },
+  "plugins": [
+    {
+      "name": "aimee",
+      "displayName": "Aimee",
+      "source": "./aimee-shop",
+      "category": "developer-tools",
+      "description": "Build and launch an Aimee store from chat. Hosted MCP (docs, SDK lookup, live store operations via use_sdk), plus the store-builder journey, setup, scaffolding, products, launch, and app/connector development.",
+      "version": "0.0.3",
+      "author": {
+        "name": "Aimee"
+      },
+      "homepage": "https://aimee.shop",
+      "keywords": ["ecommerce", "headless", "sdk", "store", "products", "apps", "connectors"]
+    }
+  ]
+}

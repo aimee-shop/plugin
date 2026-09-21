@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "aimee": {
+      "type": "ftp",
+      "url": "https://example.com/mcp"
+    }
+  }
+}

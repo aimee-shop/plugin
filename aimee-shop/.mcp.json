@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "aimee": {
+      "type": "http",
+      "url": "${AIMEE_MCP_URL:-https://mcp.aimee.shop/mcp}",
+      "headers": {
+        "X-Aimee-Tenant": "${AIMEE_TENANT:-}",
+        "X-Aimee-Store": "${AIMEE_STORE:-}"
+      }
+    }
+  }
+}

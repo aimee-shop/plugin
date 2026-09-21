@@ -1,0 +1,47 @@
+{
+  "name": "aimee",
+  "version": "0.0.3",
+  "description": "Build and launch an online store on Aimee. Catalog, Next.js storefront, store-builder journey, hosted MCP, and app/connector skills.",
+  "author": {
+    "name": "Aimee",
+    "email": "support@aimee.shop"
+  },
+  "homepage": "https://aimee.shop",
+  "repository": "https://github.com/aimee-shop/plugin",
+  "license": "MIT",
+  "keywords": [
+    "ecommerce",
+    "headless",
+    "sdk",
+    "store",
+    "products",
+    "commerce",
+    "api",
+    "apps",
+    "connectors"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Aimee",
+    "shortDescription": "Build and operate an Aimee store from a coding agent. Hosted OAuth MCP, catalog, and Next.js storefront skills.",
+    "longDescription": "Aimee is a headless commerce platform. This plugin packages reusable skills with a remote OAuth MCP server at https://mcp.aimee.shop/mcp so ChatGPT and Codex can look up the SDK, pin tenant and store scope, manage catalog, and scaffold a Next.js storefront.\n\nSignup, payment card, legal terms, Stripe Connect, DNS, and production launch are human takeovers in the browser. This is agent-assisted Next.js scaffolding plus catalog skills, not a no-code hosted storefront. The plugin does not skip OAuth and does not embed API keys.\n\nThere is no license fee; Aimee charges a percent of GMV. Knowledge and live store tools require an Aimee account and an authenticated MCP session. A local or source install of this package is not an approved Plugins Directory listing.",
+    "developerName": "Aimee",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://aimee.shop",
+    "privacyPolicyURL": "https://aimee.shop/privacy",
+    "termsOfServiceURL": "https://aimee.shop/terms",
+    "defaultPrompt": [
+      "Connect Aimee MCP, run whoami, and start the store-builder journey. Stop for signup, card, and legal terms.",
+      "Add five products to my Aimee catalog using the products skill.",
+      "Run the store-builder journey through local preview and sandbox test checkout. Do not take a production payment on a sandbox store."
+    ],
+    "brandColor": "#0066F7",
+    "composerIcon": "./assets/composer-icon.svg",
+    "logo": "./assets/logo.png"
+  }
+}

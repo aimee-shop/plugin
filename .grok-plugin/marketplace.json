@@ -1,0 +1,31 @@
+{
+  "name": "aimee",
+  "description": "Official Aimee plugins for Grok - build e-commerce stores and apps with AI assistance.",
+  "owner": {
+    "name": "Aimee",
+    "email": "support@aimee.shop"
+  },
+  "plugins": [
+    {
+      "name": "aimee",
+      "description": "Build and launch an Aimee store from chat. Hosted MCP (docs, SDK lookup, live store operations via use_sdk), plus the store-builder journey, setup, scaffolding, products, launch, and app/connector development.",
+      "category": "developer-tools",
+      "homepage": "https://aimee.shop",
+      "keywords": [
+        "ecommerce",
+        "headless",
+        "sdk",
+        "store",
+        "products",
+        "commerce",
+        "api",
+        "apps",
+        "connectors"
+      ],
+      "source": {
+        "type": "local",
+        "path": "./dist/grok/aimee-shop"
+      }
+    }
+  ]
+}

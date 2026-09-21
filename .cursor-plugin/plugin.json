@@ -1,0 +1,27 @@
+{
+  "name": "aimee",
+  "displayName": "Aimee",
+  "version": "0.0.3",
+  "description": "Build and launch an online store on Aimee. Catalog, Next.js storefront, store-builder journey, hosted MCP, and app/connector skills.",
+  "author": {
+    "name": "Aimee",
+    "email": "support@aimee.shop"
+  },
+  "homepage": "https://aimee.shop",
+  "repository": "https://github.com/aimee-shop/plugin",
+  "license": "MIT",
+  "keywords": [
+    "ecommerce",
+    "headless",
+    "sdk",
+    "store",
+    "products",
+    "commerce",
+    "api",
+    "apps",
+    "connectors"
+  ],
+  "category": "developer-tools",
+  "skills": "./dist/agent-plugins/aimee-shop/skills/",
+  "mcpServers": "./dist/agent-plugins/aimee-shop/mcp.json"
+}

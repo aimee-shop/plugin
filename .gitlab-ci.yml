@@ -1,0 +1,12 @@
+stages:
+  - verify
+
+# Regenerates Agent Plugins 1.0, Grok, Cursor, and OpenAI packagings from
+# aimee-shop/ and fails if committed outputs are stale. Also runs schema,
+# missing-source, duplicate-skill, and private-content fixture tests.
+packagings:
+  stage: verify
+  image: node:22
+  script:
+    - node --test scripts/validate-packagings.test.mjs
+    - node scripts/build-packagings.mjs --check

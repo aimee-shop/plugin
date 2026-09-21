@@ -1,0 +1,14 @@
+{
+  "$schema": "https://claude.ai/schemas/plugin.json",
+  "name": "aimee",
+  "description": "Build and launch an online store on Aimee. Catalog, Next.js storefront, store-builder journey, hosted MCP, and app/connector skills.",
+  "version": "0.0.3",
+  "author": {
+    "name": "Aimee",
+    "email": "support@aimee.shop"
+  },
+  "homepage": "https://aimee.shop",
+  "repository": "https://github.com/aimee-shop/plugin",
+  "license": "MIT",
+  "keywords": ["ecommerce", "headless", "sdk", "store", "products", "commerce", "api", "apps", "connectors"]
+}
