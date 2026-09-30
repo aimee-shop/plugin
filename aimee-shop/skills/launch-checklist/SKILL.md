@@ -77,6 +77,8 @@ values are treated as unset.
 ## Tips
 
 - Remind users about SEO: product meta titles and descriptions.
+- Accessibility (WCAG 2.2 AA) is not covered here; run the
+  `accessibility-audit` skill (`/aimee:accessibility-audit`) before launch.
 - For a deeper automated pass, you may delegate to `aimee-launch-auditor`
   when that agent exists in this client. If it does not, run this skill
   yourself.

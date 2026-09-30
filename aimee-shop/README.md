@@ -62,6 +62,7 @@ their own skill invocation (or the agent picks them up from the request).
 - `products` (`/aimee:products`) - bulk-create products
 - `integrate-sdk` (`/aimee:integrate-sdk`) - add @aimee.shop/sdk to an existing project
 - `launch-checklist` (`/aimee:launch-checklist`) - validate launch readiness
+- `accessibility-audit` (`/aimee:accessibility-audit`) - WCAG 2.2 AA checklist and automated a11y testing layers
 - `search` (`/aimee:search`) - search Aimee docs and SDK reference
 
 ### App developer track
@@ -78,5 +79,7 @@ carry agents):
 - `aimee-integration-reviewer` - reviews @aimee.shop/sdk and @aimee.shop/blocks
   usage in storefront code
 - `aimee-launch-auditor` - audits store readiness to go live via live reads
+- `aimee-accessibility-reviewer` - report-only WCAG 2.2 AA review of storefront
+  code (variant pickers, cart drawer, prices, checkout, payment iframes)
 - `app-integration-reviewer` - reviews app/connector designs against platform
   constraints (ERP sync surface, activity-only workers, conflicts, triggers)

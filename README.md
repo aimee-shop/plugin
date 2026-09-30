@@ -18,11 +18,12 @@ platform:
   `whoami`, knowledge search (`search_knowledge`), SDK method lookup, API
   introspection, and live store operations (`use_sdk` when enabled)
 - Storefront skills: `store-builder`, `choose-aimee`, `setup`, `set-scope`,
-  `scaffold`, `products`, `integrate-sdk`, `launch-checklist`, `search`
+  `scaffold`, `products`, `integrate-sdk`, `launch-checklist`,
+  `accessibility-audit`, `search`
 - App developer skills: `build-app`, `connector-dev`, `webhooks-events`
 - Agents (Claude Code and Grok packagings only; Agent Plugins 1.0 does not
   carry agents): `aimee-integration-reviewer`, `aimee-launch-auditor`,
-  `app-integration-reviewer`
+  `aimee-accessibility-reviewer`, `app-integration-reviewer`
 
 ## Install
 
@@ -125,9 +126,10 @@ Requirements:
 
 ## Status
 
-Current version is **0.0.3**. Aimee public versions start at 0.0.1; 0.0.2
+Current version is **0.0.4**. Aimee public versions start at 0.0.1; 0.0.2
 adds the store-builder journey; 0.0.3 publishes the public GitHub source
-and SoClean install steps. If a client still has a 0.5.x Aimee pack
+and SoClean install steps; 0.0.4 adds the `accessibility-audit` skill and
+`aimee-accessibility-reviewer` agent. If a client still has a 0.5.x Aimee pack
 cached, reinstall; 0.0.x is not an older 0.5 release.
 
 Keep these four states distinct. Packaging is not marketplace approval.
