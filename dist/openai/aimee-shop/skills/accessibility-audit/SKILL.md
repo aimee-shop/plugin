@@ -56,9 +56,9 @@ WCAG 2.2 criterion numbers in brackets.
 - Payment and other `<iframe>`s have a `title` [4.1.2]
 - ARIA roles, states, and attributes are valid; no `aria-hidden` on focusable
   content; no positive `tabindex` [4.1.2, 2.4.3]
-- Landmarks exist and headings are not empty; a skip link or `main`
-  landmark exists [1.3.1, 2.4.1]
-- Variant radios are grouped with an accessible group name [1.3.1]
+- A `main` landmark exists, content sits in landmarks, headings are not
+  empty, and heading levels do not skip [1.3.1, 2.4.1] -- these are axe
+  `best-practice` rules, so include that tag
 - Buttons and links are real `<button>` / `<a>` elements, not `div onClick`
   [2.1.1, 4.1.2]
 - Target size of stepper and swatch buttons is at least 24x24 CSS px [2.5.8]
@@ -69,22 +69,27 @@ WCAG 2.2 criterion numbers in brackets.
 
 - Alt text is meaningful (product name plus distinguishing detail), not just
   present [1.1.1]
+- Variant radios are grouped with a group name ("Size"); no lint or axe rule
+  flags ungrouped radios [1.3.1]
 - Selected variant and sold-out options are announced correctly, and not
   shown by colour alone [1.4.1, 4.1.2]
 - Sale price is read with context ("was $40, now $30"); strikethrough alone
-  is not announced [1.3.1]
+  is not reliably announced [1.3.1]
 - Add-to-cart, quantity changes, and cart total updates are announced by a
   live region [4.1.3]
-- Cart drawer: focus moves in, is trapped, `Escape` closes it, focus returns
-  to the trigger [2.1.2, 2.4.3]
+- Cart drawer: focus moves in, `Escape` closes it, focus returns to the
+  trigger [2.1.2, 2.4.3]. Keeping focus inside while open is the WAI-ARIA
+  modal dialog pattern; `Escape` is what keeps that from being a trap.
 - Checkout errors: clear text, tied to the field, focus moved to the error
   or summary, fix suggested [3.3.1, 3.3.3]
 - Order review before purchase; billing-same-as-shipping; login allows paste
   and password managers [3.3.4, 3.3.7, 3.3.8]
-- Focus is always visible and never hidden by a sticky header, cookie banner,
-  or chat widget [2.4.7, 2.4.11]
+- Focus is always visible [2.4.7] and never entirely hidden by a sticky
+  header, cookie banner, or chat widget [2.4.11; fully visible is 2.4.12
+  AAA]
 - Payment iframe: can tab in and out; provider errors reach the page [2.1.1]
-- Heading order makes sense, including CMS content [1.3.1, 2.4.6]
+- Headings reflect the real structure and describe their sections,
+  including CMS content [1.3.1, 2.4.6]
 - **Keyboard pass**: home to order placed with keyboard only (Tab,
   Shift+Tab, Enter, Space, arrows, Escape). No traps, logical order.
 - **Screen reader pass**: the same journey with VoiceOver (macOS/iOS) and
@@ -135,8 +140,10 @@ state: home, a collection, a PDP, cart, checkout.
     "collect": {
       "url": [
         "http://localhost:3000/",
+        "http://localhost:3000/collections/all",
         "http://localhost:3000/products/example-product",
-        "http://localhost:3000/cart"
+        "http://localhost:3000/cart",
+        "http://localhost:3000/checkout"
       ],
       "startServerCommand": "npm run start"
     },
@@ -169,15 +176,19 @@ npx playwright install --with-deps chromium
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-// WCAG 2.0/2.1/2.2 A and AA rules.
-const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
+// WCAG 2.0/2.1/2.2 A and AA rules, plus axe best-practice rules
+// (landmarks, heading order) that WCAG tags alone do not run.
+const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
 
 async function expectNoSeriousViolations(page: Page, state: string) {
-  const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
-  const blocking = results.violations
-    .filter((v) => v.impact === 'serious' || v.impact === 'critical')
-    .map((v) => `${v.impact} ${v.id}: ${v.help} (${v.nodes.length} nodes) ${v.helpUrl}`);
-  expect(blocking, `axe violations in state: ${state}`).toEqual([]);
+  const results = await new AxeBuilder({ page }).withTags(AXE_TAGS).analyze();
+  const describe = (v: (typeof results.violations)[number]) =>
+    `${v.impact} ${v.id}: ${v.help} (${v.nodes.length} nodes) ${v.helpUrl}`;
+  const isBlocking = (v: (typeof results.violations)[number]) =>
+    v.impact === 'serious' || v.impact === 'critical';
+  // Moderate/minor (most best-practice rules) are logged, not dropped.
+  results.violations.filter((v) => !isBlocking(v)).forEach((v) => console.warn(state, describe(v)));
+  expect(results.violations.filter(isBlocking).map(describe), `axe violations in state: ${state}`).toEqual([]);
 }
 
 // Adjust URLs, roles, and names to your storefront.
@@ -187,17 +198,18 @@ test('product page, variant change', async ({ page }) => {
   await page.goto(PDP);
   await expectNoSeriousViolations(page, 'PDP loaded');
 
-  await page.getByRole('radio', { name: 'Large' }).check();
+  await page.getByRole('radio', { name: 'Large', exact: true }).check();
   await expectNoSeriousViolations(page, 'variant changed');
 });
 
-test('cart drawer open, focus trapped and returned', async ({ page }) => {
+test('cart drawer open, focus returned on close', async ({ page }) => {
   await page.goto(PDP);
   const addToCart = page.getByRole('button', { name: /add to cart/i });
   await addToCart.click();
 
   const drawer = page.getByRole('dialog', { name: /cart/i });
   await expect(drawer).toBeVisible();
+  // Needs role="status" (or <output>); a region with only aria-live will not match.
   await expect(page.getByRole('status').filter({ hasText: /added/i })).toHaveCount(1);
   await expectNoSeriousViolations(page, 'cart drawer open');
 
@@ -209,11 +221,13 @@ test('cart drawer open, focus trapped and returned', async ({ page }) => {
 test('checkout validation errors', async ({ page }) => {
   await page.goto(PDP);
   await page.getByRole('button', { name: /add to cart/i }).click();
+  // Wait for the cart write before leaving the page.
+  await expect(page.getByRole('status').filter({ hasText: /added/i })).toHaveCount(1);
   await page.goto('/checkout');
-  // Assumes script validation that sets aria-invalid; adjust to your checkout.
-  await page.getByRole('button', { name: /continue|place order/i }).click();
+  // Assumes script validation that sets aria-invalid; adjust names to your checkout.
+  await page.getByRole('button', { name: /^(continue|place order)$/i }).click();
 
-  await expect(page.getByLabel(/email/i)).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.getByLabel('Email', { exact: true })).toHaveAttribute('aria-invalid', 'true');
   await expectNoSeriousViolations(page, 'checkout errors shown');
 });
 ```
