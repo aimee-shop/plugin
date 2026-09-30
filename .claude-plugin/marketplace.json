@@ -15,7 +15,7 @@
       "source": "./aimee-shop",
       "category": "developer-tools",
       "description": "Build and launch an Aimee store from chat. Hosted MCP (docs, SDK lookup, live store operations via use_sdk), plus the store-builder journey, setup, scaffolding, products, launch, and app/connector development.",
-      "version": "0.0.4",
+      "version": "0.0.5",
       "author": {
         "name": "Aimee"
       },

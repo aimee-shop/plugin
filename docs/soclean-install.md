@@ -22,8 +22,8 @@ claude plugin marketplace add aimee-shop/plugin
 claude plugin install aimee@aimee
 ```
 
-Confirm the cache is `aimee@aimee` **0.0.4**:
-`~/.claude/plugins/cache/aimee/aimee/0.0.4`.
+Confirm the cache is `aimee@aimee` **0.0.5**:
+`~/.claude/plugins/cache/aimee/aimee/0.0.5`.
 
 ## Connect and pick the store
 

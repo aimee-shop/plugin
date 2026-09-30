@@ -37,7 +37,7 @@ the `accessibility-audit` skill (`/aimee:accessibility-audit`).
 
 ## Commerce checklist
 
-Product images and media (1.1.1, 2.2.2, 2.5.7)
+Product images and media (1.1.1, 2.2.2, 2.5.1, 2.5.7)
 - `next/image` and `<img>` have meaningful `alt` (product name plus the
   distinguishing detail, e.g. colour or angle). Decorative images use
   `alt=""`. Flag alt text like "image", file names, or duplicated captions.
@@ -71,25 +71,29 @@ Add to cart and live regions (4.1.3)
 Cart drawer / modal (2.1.1, 2.1.2, 2.4.3, 4.1.2)
 - `role="dialog"` with `aria-modal="true"` and an accessible name, or a
   native `<dialog>` opened with `showModal()`.
-- Focus moves into the drawer on open, stays trapped while open, `Escape`
-  closes it, and focus returns to the trigger (cart button or add-to-cart
-  button). Background content is inert.
+- Focus moves into the drawer on open and returns to the trigger (cart
+  button or add-to-cart button) on close. `Escape` closes it, which is what
+  keeps a focus trap from failing 2.1.2.
+- Best practice (WAI-ARIA modal dialog pattern, not a WCAG requirement on
+  its own): focus stays inside while open and background content is inert.
 - Remove-item buttons name the item. After removal, focus lands somewhere
   sensible (next item, or the drawer heading when empty).
 
 Prices and sale prices (1.3.1, 1.4.1)
-- `<s>`, `<del>`, or `line-through` alone is not announced by most screen
-  readers. Original and sale prices need text ("Was $40.00, now $30.00",
+- `<s>`, `<del>`, or `line-through` alone is not reliably announced by
+  screen readers. Original and sale prices need text ("Was $40.00, now $30.00",
   visually hidden text is fine). Discount badges are text, not colour alone.
 - Currency is formatted (for example `Intl.NumberFormat`), not a bare number.
 
-Checkout forms (1.3.1, 1.3.5, 3.3.1-3.3.4, 3.3.7, 3.3.8)
+Checkout forms (1.3.1, 1.3.5, 2.2.1, 3.3.1-3.3.4, 3.3.7, 3.3.8)
 - Every field has a visible `<label>`; placeholders are not labels. Address
   groups use `fieldset`/`legend`. Required is programmatic (`required` or
   `aria-required`), not only an asterisk.
-- `autocomplete` tokens on personal data: `email`, `tel`, `given-name`,
-  `family-name`, `address-line1`, `address-line2`, `address-level2`,
-  `address-level1`, `postal-code`, `country`, `one-time-code`.
+- `autocomplete` tokens on personal data (1.3.5): `email`, `tel`,
+  `given-name`, `family-name`, `address-line1`, `address-line2`,
+  `address-level2`, `address-level1`, `postal-code`, and `country` (select
+  of codes) or `country-name` (free text). Also add `one-time-code` on OTP
+  fields as good practice (not a 1.3.5 input purpose).
 - Errors: text messages tied to fields with `aria-describedby`, fields set
   `aria-invalid="true"`, an error summary or focus moved to the first error
   on submit, and messages that say how to fix it.
@@ -97,7 +101,8 @@ Checkout forms (1.3.1, 1.3.5, 3.3.1-3.3.4, 3.3.7, 3.3.8)
 - Order review before the purchase is placed (financial transaction).
 - Login/guest: paste and password managers allowed; no cognitive puzzle
   as the only way through.
-- Session or reservation timers can be extended.
+- Session or reservation timers can be turned off, adjusted, or extended
+  (2.2.1).
 
 Payment iframes (2.1.1, 4.1.2)
 - Each `<iframe>` has a `title` ("Secure card payment"). No `aria-hidden` or
@@ -112,17 +117,20 @@ Page structure and navigation (1.3.1, 2.4.1, 2.4.2, 2.4.6, 3.1.1)
   (Next.js `metadata`), which the App Router route announcer reads.
 - A skip link is the first focusable element, visible on focus, and targets
   `<main id="main">`. Landmarks: `header`, `nav`, `main`, `footer`.
-- One `h1` per page (product name on the PDP); no skipped levels, including
-  CMS content rendered by `BlockRenderer`.
-- Link text makes sense out of context, or has an accessible name that
-  includes the visible text (2.4.4, 2.5.3).
+- Headings mark up the real structure (1.3.1) and describe their section
+  (2.4.6). Best practice, not a WCAG requirement: one `h1` per page (product
+  name on the PDP) and no skipped levels, including CMS content rendered by
+  `BlockRenderer`.
+- Link purpose is clear from the link text or its programmatic context, so
+  repeated "Shop now" links need context (2.4.4). An `aria-label` on a link
+  or button contains its visible text (2.5.3).
 
 Keyboard, focus, and visual (1.4.3, 1.4.10, 1.4.11, 2.1.1, 2.4.7, 2.4.11)
 - A keyboard-only path exists from home to order placed: search, menu,
   variant, add to cart, cart, checkout, pay. No `div onClick` controls,
   no positive `tabIndex`, no `outline: none` without a replacement.
-- Sticky headers, cookie banners, and chat widgets do not hide the focused
-  element.
+- Sticky headers, cookie banners, and chat widgets do not entirely hide the
+  focused element (2.4.11 AA; fully visible is 2.4.12 AAA).
 - Text contrast 4.5:1 (3:1 for large text); UI component and focus
   indicator contrast 3:1. Check sale-price red, muted grey text, and
   placeholder colours from the theme tokens.
