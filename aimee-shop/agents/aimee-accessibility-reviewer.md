@@ -14,6 +14,12 @@ does not prove WCAG conformance or ADA compliance, and neither does any
 automated tool. Say so in every report and point to the manual passes in
 the `accessibility-audit` skill (`/aimee:accessibility-audit`).
 
+The checklist below is the core set and works offline. For the full public
+guide, call `search_knowledge("storefront accessibility")`. If knowledge
+search is unavailable, use the docs host from `whoami` (production:
+https://docs.aimee.shop). Link the guide in your report as
+`<docs host>/docs/guides/storefront-accessibility`.
+
 ## How to review
 
 1. Find the storefront surface: root layout, header/nav, product listing,
@@ -157,4 +163,5 @@ For each finding give: `file:line`, the WCAG 2.2 success criterion number
 and name (for example "4.1.3 Status Messages (AA)"), what fails and who it
 affects, and the concrete fix. List items you could not verify from code
 under "needs manual check". End with the suggested next step: the automated
-layers and manual passes in the `accessibility-audit` skill.
+layers and manual passes in the `accessibility-audit` skill, and the link to
+the storefront accessibility guide.

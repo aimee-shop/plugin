@@ -24,6 +24,14 @@ Tell the user plainly, before any results:
   compliance on its own.
 - This is engineering guidance, not legal advice.
 
+## Full guide
+
+The checklist in this skill is the core set and works offline. For the full
+public guide, call `search_knowledge("storefront accessibility")`. If
+knowledge search is unavailable, use the docs host from `whoami`
+(production: https://docs.aimee.shop) and give the user the link
+`<docs host>/docs/guides/storefront-accessibility`.
+
 ## Process
 
 1. **Find the surface.** Locate the root layout, header/nav, product
@@ -38,8 +46,9 @@ Tell the user plainly, before any results:
    already has. Offer to add the missing ones, in order.
 4. **Manual passes.** Give the user the manual-only list below as their test
    script. Offer to help interpret what they find.
-5. **Report.** Automated findings, code-review findings, and manual items
-   still to do. Never report "compliant".
+5. **Report.** Automated findings, code-review findings, manual items still
+   to do, and the storefront accessibility guide link. Never report
+   "compliant".
 
 ## Commerce checklist
 
